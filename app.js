@@ -7,6 +7,7 @@ app.use(cors());
 const bcrypt = require("bcryptjs");
 const Post = require("./models/Post");
 const Post1 = require("./models/Post");
+require("dotenv").config();
 
 const multer = require("multer");
 const uploadMiddleware = multer({ dest: "upload/" });
@@ -19,10 +20,9 @@ const AngerPostModel = require("./models/AngerPost");
 
 const jwt = require("jsonwebtoken");
 
-const JWT_SECRET = "asdasdasdasfdfge4dadsfiloasdveujai()123asad3d";
+const jwtSecret = process.env.JWT_SECRET;
 
-const mongoUrl =
-  "mongodb+srv://acegabriel:acegabriel@cluster-1.vk8798k.mongodb.net/?retryWrites=true&w=majority";
+const mongoUrl = process.env.MONGO_URL;
 
 mongoose
   .connect(mongoUrl, {

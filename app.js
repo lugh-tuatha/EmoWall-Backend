@@ -5,7 +5,6 @@ app.use(express.json());
 const cors = require("cors");
 app.use(cors());
 const Post = require("./models/Post");
-const Post1 = require("./models/Post");
 require("dotenv").config();
 
 const multer = require("multer");
@@ -32,27 +31,7 @@ app.listen(5000, () => {
   console.log("Server Started");
 });
 
-app.post("/post", uploadMiddleware.single("file"), async (req, res) => {
-  const { originalname, path } = req.file;
-  const parts = originalname.split(".");
-  const ext = parts[parts.length - 1];
-  const newPath = path + "." + ext;
-  fs.renameSync(path, newPath);
-
-  const { title, summary, codename, cover } = req.body;
-  const postDoc = await Post1.create({
-    title,
-    summary,
-    codename,
-    cover: newPath,
-  });
-
-  res.json(postDoc);
-});
-
-app.get("/post", async (req, res) => {
-  res.json(await Post.find());
-});
+app.use("/post", require('./routes/uploadRoutes'));
 
 // Sad
 app.post("/sadpost", uploadMiddleware.single("file"), async (req, res) => {

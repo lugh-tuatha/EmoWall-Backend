@@ -1,5 +1,3 @@
-const multer = require("multer");
-const uploadMiddleware = multer({ dest: "upload/" });
 const Post1 = require("../models/Post");
 
 const uploadPost = async (req, res) => {

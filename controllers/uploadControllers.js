@@ -1,4 +1,4 @@
-const Post1 = require("../models/Post");
+const PostModel = require("../models/Post");
 
 const uploadPost = async (req, res) => {
   const { originalname, path } = req.file;
@@ -8,7 +8,7 @@ const uploadPost = async (req, res) => {
   fs.renameSync(path, newPath);
 
   const { title, summary, codename, cover } = req.body;
-  const postDoc = await Post1.create({
+  const postDoc = await PostModel.create({
     title,
     summary,
     codename,
@@ -20,7 +20,7 @@ const uploadPost = async (req, res) => {
 
 
 const getPost = async (req, res) => {
-  res.json(await Post.find());
+  res.json(await PostModel.find());
 };
 
 module.exports = {

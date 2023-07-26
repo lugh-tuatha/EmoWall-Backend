@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const colors = require("colors");
 const mongoose = require("mongoose");
 app.use(express.json());
 const cors = require("cors");
@@ -15,7 +16,7 @@ mongoose
     useNewUrlParser: true,
   })
   .then(() => {
-    console.log("Connected to database");
+    console.log("Connected to database".cyan.underline);
   })
   .catch((e) => console.log(e));
 
@@ -26,5 +27,7 @@ app.listen(5000, () => {
 app.use("/post", require("./routes/uploadRoutes"));
 
 app.use("/sadpost", require("./routes/sadPostRoutes"));
+
+app.use('/sadpost', require("./routes/sadPostRoutes"));
 
 app.use("/angerpost", require("./routes/angerPostRoutes"));

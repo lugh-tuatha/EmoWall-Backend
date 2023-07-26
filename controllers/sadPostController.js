@@ -22,7 +22,18 @@ const getSadPost = async (req, res) => {
   res.json(await SadPostModel.find());
 };
 
+const getSadPostId = (req, res) => {
+  console.log(req.params);
+
+  // ? udemy 54
+
+  res.status(200).json({
+    status: 'success'
+  })
+};
+
 module.exports = {
   getSadPost,
-  uploadSadPost
+  uploadSadPost,
+  getSadPostId,
 };

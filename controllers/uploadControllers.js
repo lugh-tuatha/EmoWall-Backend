@@ -1,3 +1,4 @@
+const fs = require("fs");
 const PostModel = require("../models/Post");
 
 const uploadPost = async (req, res) => {
@@ -17,7 +18,6 @@ const uploadPost = async (req, res) => {
 
   res.json(postDoc);
 };
-
 
 const getPost = async (req, res) => {
   res.json(await PostModel.find());

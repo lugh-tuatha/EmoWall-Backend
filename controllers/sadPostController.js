@@ -1,3 +1,4 @@
+const fs = require("fs");
 const SadPostModel = require("../models/SadPost");
 
 const uploadSadPost = async (req, res) => {
@@ -28,8 +29,8 @@ const getSadPostId = (req, res) => {
   // ? udemy 54
 
   res.status(200).json({
-    status: 'success'
-  })
+    status: "success",
+  });
 };
 
 module.exports = {

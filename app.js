@@ -28,6 +28,4 @@ app.use("/post", require("./routes/uploadRoutes"));
 
 app.use("/sadpost", require("./routes/sadPostRoutes"));
 
-app.use('/sadpost', require("./routes/sadPostRoutes"));
-
 app.use("/angerpost", require("./routes/angerPostRoutes"));

@@ -1,3 +1,4 @@
+const fs = require('fs')
 const AngerPostModel = require("../models/AngerPost");
 
 const uploadAngerPost = async (req, res) => {

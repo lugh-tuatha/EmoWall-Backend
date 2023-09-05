@@ -10,22 +10,16 @@ require("dotenv").config();
 app.use("/upload", express.static(__dirname + "/upload"));
 
 const mongoUrl = process.env.MONGO_URL;
+const connectDB = require("./ConnectDB");
 
-mongoose
-  .connect(mongoUrl, {
-    useNewUrlParser: true,
-  })
-  .then(() => {
-    console.log("Connected to database".cyan.underline);
-  })
-  .catch((e) => console.log(e));
-
-app.listen(5000, () => {
-  console.log("Server Started");
-});
+connectDB();
 
 app.use("/post", require("./routes/uploadRoutes"));
 
 app.use("/sadpost", require("./routes/sadPostRoutes"));
 
 app.use("/angerpost", require("./routes/angerPostRoutes"));
+
+app.listen(5000, () => {
+  console.log("Server Started");
+});

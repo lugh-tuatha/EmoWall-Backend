@@ -11,3 +11,7 @@ This repository serves as the backend for my website, ["Masked Emotion."](https:
 I want to acknowledge the valuable contributions of these resources in the development of our project.
 * [multer](https://www.npmjs.com/package/multer)
 * [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
+* [ndb](https://www.npmjs.com/package/ndb)
+* [nodemon](https://www.npmjs.com/package/nodemon)
+* [colors](https://www.npmjs.com/package/colors)
+* [validator](https://www.npmjs.com/package/validator)

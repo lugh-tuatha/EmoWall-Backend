@@ -5,7 +5,7 @@ const { getPost, uploadPost } = require("../controllers/uploadControllers");
 const multer = require("multer");
 const uploadMiddleware = multer({ dest: "upload/" });
 
-router.post("/post", uploadMiddleware.single("file"), uploadPost)
+router.post("/", uploadMiddleware.single("file"), uploadPost)
 
 router.get("/", getPost);
 

@@ -1,22 +1,26 @@
 const fs = require("fs");
 const PostModel = require("../models/Post");
+const {cloudinary} = require('../utils/cloudinary')
 
 const uploadPost = async (req, res) => {
-  const { originalname, path } = req.file;
-  const parts = originalname.split(".");
-  const ext = parts[parts.length - 1];
-  const newPath = path + "." + ext;
-  fs.renameSync(path, newPath);
+  try {
+    const { image, title, summary, codename } = req.body;
+    const uploadedImage = await cloudinary.uploader.upload(image, {
+      upload_preset: 'masked_emotion',
+      allowed_formats: ['jpg', 'png', 'jpeg', 'webp', 'svg', 'ico', 'jfif'],
+    },)
 
-  const { title, summary, codename, cover } = req.body;
-  const postDoc = await PostModel.create({
-    title,
-    summary,
-    codename,
-    cover: newPath,
-  });
+    const postDoc = await PostModel.create({
+      title,
+      summary,
+      codename,
+      cover: uploadedImage.url,
+    });
 
-  res.json(postDoc);
+    res.json(postDoc)
+  } catch (error) {
+    console.log(error)
+  }
 };
 
 const getPost = async (req, res) => {

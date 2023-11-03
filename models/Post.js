@@ -6,7 +6,11 @@ const PostSchema = new Schema(
     codename: String,
     title: String,
     summary: String,
-    cover: String,
+    category: String,
+    cover: {
+      type: String,
+      required: false,
+    },
   },
   {
     timestamps: true,

@@ -6,7 +6,10 @@ const AngerPostSchema = new Schema(
     title2: String,
     summary2: String,
     codename2: String,
-    cover2: String,
+    cover2: {
+      type: String,
+      required: false,
+    },
   },
   {
     timestamps: true,

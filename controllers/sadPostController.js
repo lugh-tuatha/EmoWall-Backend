@@ -1,22 +1,26 @@
 const fs = require("fs");
 const SadPostModel = require("../models/SadPost");
+const {cloudinary} = require('../utils/cloudinary')
 
 const uploadSadPost = async (req, res) => {
-  const { originalname, path } = req.file;
-  const parts = originalname.split(".");
-  const ext = parts[parts.length - 1];
-  const newPath = path + "." + ext;
-  fs.renameSync(path, newPath);
+  try {
+    const { image, title, summary, codename } = req.body;
+    const uploadedImage = await cloudinary.uploader.upload(image, {
+      upload_preset: 'masked_emotion',
+      allowed_formats: ['jpg', 'png', 'jpeg', 'webp', 'svg', 'ico', 'jfif'],
+    },)
 
-  const { title1, summary1, codename1, cover1 } = req.body;
-  const postDoc = await SadPostModel.create({
-    title1,
-    summary1,
-    codename1,
-    cover1: newPath,
-  });
+    const postDoc = await SadPostModel.create({
+      title1: title,
+      summary1: summary,
+      codename1: codename,
+      cover1: uploadedImage.url,
+    });
 
-  res.json(postDoc);
+    res.json(postDoc)
+  } catch (error) {
+    console.log(error)
+  }
 };
 
 const getSadPost = async (req, res) => {

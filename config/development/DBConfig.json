@@ -1,4 +1,4 @@
 {
-  "DatabaseUrl": "mongodb+srv://acegabriel:acegabriel@cluster-1.vk8798k.mongodb.net/?retryWrites=true&w=majority",
+  "DatabaseUrl": "mongodb+srv://acegabriel:acegabriel@cluster-1.vk8798k.mongodb.net/masked-emotion?retryWrites=true&w=majority",
   "Route": ""
 }

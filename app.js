@@ -16,11 +16,7 @@ const connectDB = require("./ConnectDB");
 
 connectDB();
 
-app.use("/post", require("./routes/uploadRoutes"));
-
-app.use("/sadpost", require("./routes/sadPostRoutes"));
-
-app.use("/angerpost", require("./routes/angerPostRoutes"));
+app.use("/api/v2/release/emotions", require("./routes/emotionsRoutes"));
 
 app.listen(5000, () => {
   console.log("Server Started");

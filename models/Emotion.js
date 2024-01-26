@@ -1,12 +1,13 @@
 const mongoose = require("mongoose");
 const {Schema, model} = mongoose;
 
-const PostSchema = new Schema(
+const EmotionSchema = new Schema(
   {
     codename: String,
     title: String,
     summary: String,
     category: String,
+    likes: Number,
     cover: {
       type: String,
       required: false,
@@ -14,10 +15,10 @@ const PostSchema = new Schema(
   },
   {
     timestamps: true,
-    collection: "posts",
+    collection: "emotions",
   }
 );
 
-const PostModel = model('Post', PostSchema);
+const Emotion = model('Emotions', EmotionSchema);
 
-module.exports = PostModel;
+module.exports = Emotion;

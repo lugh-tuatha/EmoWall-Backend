@@ -8,6 +8,7 @@ const EmotionSchema = new Schema(
     summary: String,
     category: String,
     likes: Number,
+    is_reported: Boolean,
     cover: {
       type: String,
       required: false,

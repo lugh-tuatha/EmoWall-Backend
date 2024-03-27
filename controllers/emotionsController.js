@@ -2,44 +2,50 @@ const Emotion = require("../models/Emotion");
 const {cloudinary} = require('../utils/cloudinary')
 
 // @desc   Get All Emotions
-// @route  GET /api/v2/release/reflection
+// @route  GET /api/v2/release/emotions
 // @access Public
 const fetchEmotions = async (req, res) => {
   try {
     const fetchEmotions = await Emotion.find()
 
     res.status(200).json({
-      status: 200,
+      status: "retrieved successfully",
       results: fetchEmotions.length,
       emotions:  fetchEmotions,
     })
   } catch (error) {
     res.status(404).json({
-      status: 404,
+      status: "failed to retrieve",
       message: error.message
     })
   }
 };
 
+// @desc   Get Emotions by Category
+// @route  GET /api/v2/release/emotions/category/:category
+// @access Public
 const fetchEmotionByCategory = async (req, res) => {
   const category = req.params.category;
-
+  console.log(category)
   try {
     const ds = await Emotion.find({ category: category })
 
     res.status(200).json({
-      status: 200,
+      status: "retrieved successfully",
       results: ds.length,
       emotions:  ds,
     })
   } catch (error) {
     res.status(404).json({
-      status: 404,
+      status: "failed to retrieve",
       message: error.message
     })
   }
 };
 
+// @desc   Get Emotions by id
+// @route  GET /api/v2/release/emotions/:id
+// @access Public
 const fetchEmotionById = async (req, res) => {
   const id = req.params.id;
 
@@ -47,13 +53,13 @@ const fetchEmotionById = async (req, res) => {
     const ds = await Emotion.findById(id);
 
     res.status(200).json({
-      status: 200,
+      status: "retrieved successfully",
       results: ds.length,
       emotions:  ds,
     })
   } catch (error) {
     res.status(404).json({
-      status: 404,
+      status: "failed to retrieve",
       message: error.message
     })
   }
@@ -61,7 +67,7 @@ const fetchEmotionById = async (req, res) => {
 
 
 // @desc   Add One Emotions
-// @route  POST /api/v2/release/reflection
+// @route  POST /api/v2/release/emotions
 // @access Public
 const createEmotions = async (req, res) => {
   try {
@@ -86,9 +92,52 @@ const createEmotions = async (req, res) => {
   }
 };
 
+// @desc   Update One Emotions
+// @route  PATCH /api/v2/release/emotions/:id
+// @access Public
+const editEmotion = async (req, res) => {
+  const id = req.params.id;
+  const updatedData = req.body; 
+
+  try {
+    const emotion = await Emotion.findByIdAndUpdate(id, updatedData, {
+      new: true,
+      runValidators: true
+    })
+
+    res.status(200).json({
+      status: "updated successfully",
+      data: {
+        emotion
+      }
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// @desc   Delete One Emotions
+// @route  DEL /api/v2/release/reflection/:id
+// @access Public
+const deleteEmotion = async (req, res) => {
+  try {
+    const emotion = await Emotion.findByIdAndDelete(req.params.id)
+
+    res.status(200).json({
+      status: "deleted successfully",
+      data: null
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
 module.exports = {
   fetchEmotions,
   createEmotions,
   fetchEmotionByCategory,
-  fetchEmotionById
+  fetchEmotionById,
+  editEmotion,
+  deleteEmotion
 };

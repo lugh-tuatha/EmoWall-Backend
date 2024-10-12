@@ -1,5 +1,5 @@
 const Emotion = require("../models/Emotion");
-const {cloudinary} = require('../utils/cloudinary')
+const { uploadImageToCloudinary } = require("../service/emotionsService");
 
 // @desc   Get All Emotions
 // @route  GET /api/v2/release/emotions
@@ -72,10 +72,8 @@ const fetchEmotionById = async (req, res) => {
 const createEmotions = async (req, res) => {
   try {
     const { image, title, summary, codename, category } = req.body;
-    const uploadedImage = await cloudinary.uploader.upload(image, {
-      upload_preset: 'masked_emotion',
-      allowed_formats: ['jpg', 'png', 'jpeg', 'webp', 'svg', 'ico', 'jfif'],
-    },)
+    
+    const uploadedImageUrl = await uploadImageToCloudinary(image)
 
     const postDoc = await Emotion.create({
       title,
@@ -83,7 +81,7 @@ const createEmotions = async (req, res) => {
       codename,
       category,
       likes: 0,
-      cover: uploadedImage.url,
+      cover: uploadedImageUrl,
     });
 
     res.json(postDoc)
